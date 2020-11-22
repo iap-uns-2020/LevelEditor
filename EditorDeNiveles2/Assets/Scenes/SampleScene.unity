@@ -3441,7 +3441,7 @@ GameObject:
   - component: {fileID: 2011248414}
   - component: {fileID: 2011248413}
   m_Layer: 5
-  m_Name: btnEstablecer
+  m_Name: btnSetMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

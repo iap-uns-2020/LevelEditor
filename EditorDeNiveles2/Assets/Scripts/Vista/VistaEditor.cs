@@ -22,7 +22,7 @@ public class VistaEditor : MonoBehaviour
     private Sprite elementSelect;
 
     private List<GameObject> allButton;
-    private IPresentadorEditor presenter;
+    private IPresenterEditor presenter;
     private int row, column;
 
     public QRCodeGenerator qrCodeGeneartor;
@@ -32,15 +32,15 @@ public class VistaEditor : MonoBehaviour
     {
         allButton = new List<GameObject>();
         typeElement = ' ';
-        presenter = new PresentadorEditor(row, column);
+        presenter = new PresenterEditor(row, column);
 
         row = (int)numberRow.value;
         column = (int)numberColumn.value;
        
         foreach (Button button in bottonObject)
-             button.onClick.AddListener(() => LlamadaDesdeBoton(button.GetComponent<ObjectSelector>(), button.GetComponent<Image>().sprite));
+             button.onClick.AddListener(() => SetElement(button.GetComponent<ObjectSelector>(), button.GetComponent<Image>().sprite));
 
-        LlamadaDesdeBoton(bottonObject[bottonObject.Length-1].GetComponent<ObjectSelector>(), bottonObject[4].GetComponent<Image>().sprite);
+        SetElement(bottonObject[bottonObject.Length-1].GetComponent<ObjectSelector>(), bottonObject[4].GetComponent<Image>().sprite);
         CreateMap();
     }
 
@@ -53,10 +53,10 @@ public class VistaEditor : MonoBehaviour
         textNumberColumn.text = "Numero de columnas: " + column;
     }
 
-    public void LlamadaDesdeBoton(ObjectSelector o, Sprite s)
+    public void SetElement(ObjectSelector selectorObject, Sprite spriteObject)
     {
-        elementSelect = s;
-        typeElement = o.ObjectType;
+        elementSelect = spriteObject;
+        typeElement = selectorObject.ObjectType;
     }
 
     public void SetMap()
@@ -67,17 +67,19 @@ public class VistaEditor : MonoBehaviour
 
     private void DeleteMap()
     {      
-       foreach (GameObject lc in allButton)
-            Destroy(lc);
+       foreach (GameObject buttonCurrent in allButton)
+            Destroy(buttonCurrent);
           
        allButton.Clear();
     }
 
     private void CreateMap()
     {
-        presenter.InicializarMapa(row, column);
+        presenter.InitializeMap(row, column);
         GridLayoutGroup gridLayoutMap = layoutMap.gameObject.GetComponent<GridLayoutGroup>();
-        gridLayoutMap.cellSize = new Vector2(gridLayoutMap.GetComponent<RectTransform>().rect.width/column, gridLayoutMap.GetComponent<RectTransform>().rect.height / row);
+        float width = gridLayoutMap.GetComponent<RectTransform>().rect.width / column;
+        float heigth = gridLayoutMap.GetComponent<RectTransform>().rect.height / row;
+        gridLayoutMap.cellSize = new Vector2(width, heigth);
         gridLayoutMap.constraintCount = row;
         elementSelect = bottonObject[4].GetComponent<Image>().sprite;
 
@@ -86,31 +88,29 @@ public class VistaEditor : MonoBehaviour
         {
             for (int j = 0; j < column; j++)
             {
-                GameObject celdaMapa = Instantiate(cell, layoutMap);
-                allButton.Add(celdaMapa);
-                celdaMapa.GetComponent<ButtonInfo>().Row = i;
-                celdaMapa.GetComponent<ButtonInfo>().Column = j;
-                celdaMapa.GetComponent<Button>().GetComponent<Image>().sprite = elementSelect;
-                celdaMapa.GetComponent<Button>().onClick.AddListener(() =>UnaFuncion(celdaMapa));
+                GameObject cellMap = Instantiate(cell, layoutMap);
+                allButton.Add(cellMap);
+                cellMap.GetComponent<ButtonInfo>().Row = i;
+                cellMap.GetComponent<ButtonInfo>().Column = j;
+                cellMap.GetComponent<Button>().GetComponent<Image>().sprite = elementSelect;
+                cellMap.GetComponent<Button>().onClick.AddListener(() =>SetElementMatrix(cellMap));
             }
         }
 
     }
 
-    public void UnaFuncion(GameObject celdaMapa)
+    public void SetElementMatrix(GameObject cellMap)
     {
-        celdaMapa.GetComponent<Button>().GetComponent<Image>().sprite = elementSelect;
+        cellMap.GetComponent<Button>().GetComponent<Image>().sprite = elementSelect;
                            
-        string posicionDelMapa = celdaMapa.GetComponentInChildren<Text>().text;
+        int positionWall = cellMap.GetComponent<ButtonInfo>().Row;
+        int positionCopumn = cellMap.GetComponent<ButtonInfo>().Column;
 
-        int posFila = celdaMapa.GetComponent<ButtonInfo>().Row;
-        int posColumna = celdaMapa.GetComponent<ButtonInfo>().Column;
-
-        presenter.EstablecerElementoMatriz(posFila, posColumna, typeElement);       
+        presenter.SetElementMatrix(positionWall, positionCopumn, typeElement);       
     }
 
     public void ValidarMapa(){
-        bool esValido = presenter.ValidoMapa();
+        bool esValido = presenter.ValidationMap();
         if(esValido)
             ObtenerCodificacionDelNivel();
         else
@@ -118,7 +118,7 @@ public class VistaEditor : MonoBehaviour
     }
 
     public void ObtenerCodificacionDelNivel(){
-        string levelString = presenter.GenerarCadena();
+        string levelString = presenter.GenerationMap();
         MostrarCodigoQR(levelString);
     }
 
@@ -136,6 +136,4 @@ public class VistaEditor : MonoBehaviour
         Debug.Log(qrData);
         qrCodeGeneartor.GenerateQR(qrData);
     }
-
-
 }

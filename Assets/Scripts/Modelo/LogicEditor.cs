@@ -7,8 +7,7 @@ public class LogicEdtor : ILogicEditor
 {
     private char[,] boarLogic;
     private int row, column;
-    private const char STARTENDSYMBOL = '#';
-    private const char MATRIXDIMENSIONSEPARATOR = '-';
+    private const char SEPARATOR = '#';
 
     public LogicEdtor(int row, int column)
     {
@@ -27,7 +26,7 @@ public class LogicEdtor : ILogicEditor
         {
             for (int j = 0; j <column; j++)
             {
-                boarLogic[i, j] = 'l';
+                boarLogic[i, j] = 'f';
             }
         }
     }
@@ -38,7 +37,7 @@ public class LogicEdtor : ILogicEditor
 
     public string GenerationMap(){
         string mapa = "";
-        mapa+=STARTENDSYMBOL+""+row+""+MATRIXDIMENSIONSEPARATOR+""+column+""+STARTENDSYMBOL;
+        mapa+=row+""+SEPARATOR+""+column+""+SEPARATOR;
         for (int i = 0; i < row; i++)
         {
             for (int j = 0; j < column; j++)
@@ -46,6 +45,7 @@ public class LogicEdtor : ILogicEditor
                 mapa += boarLogic[i, j];
             }
         }
+        Debug.Log(mapa);
         return mapa;
     }
 
@@ -58,10 +58,10 @@ public class LogicEdtor : ILogicEditor
         {
             for (int j = 0; j < column; j++)
             {
-                if (boarLogic[i, j] == 'p')
+                if (boarLogic[i, j] == 'b')
                     numberBall++;
                 else
-                    if (boarLogic[i, j] == 's')
+                    if (boarLogic[i, j] == 'g')
                     numberGoal++;
             }
         }

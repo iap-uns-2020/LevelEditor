@@ -7,6 +7,6 @@ public class BallObjectSelector : ObjectSelector
     // Start is called before the first frame update
     void Start()
     {
-        ObjectType = 'p';
+        ObjectType = 'b';
     }
 }

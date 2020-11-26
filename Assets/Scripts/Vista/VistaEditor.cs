@@ -41,18 +41,24 @@ public class VistaEditor : MonoBehaviour
              button.onClick.AddListener(() => SetElement(button.GetComponent<ObjectSelector>(), button.GetComponent<Image>().sprite));
 
         SetElement(bottonObject[bottonObject.Length-1].GetComponent<ObjectSelector>(), bottonObject[4].GetComponent<Image>().sprite);
+        SetGridLayoutMap();
         CreateMap();
+        InvokeRepeating("SetSlider", 0, 0.1f);
     }
 
     // Update is called once per frame
     void Update()
+    {
+        
+    }
+
+    private void SetSlider()
     {
         row = (int)numberRow.value;
         textNumberRow.text = "Numero de filas: " + row;
         column = (int)numberColumn.value;
         textNumberColumn.text = "Numero de columnas: " + column;
     }
-
     public void SetElement(ObjectSelector selectorObject, Sprite spriteObject)
     {
         elementSelect = spriteObject;
@@ -62,6 +68,7 @@ public class VistaEditor : MonoBehaviour
     public void SetMap()
     {
         DeleteMap();
+        SetGridLayoutMap();
         CreateMap();
     }
 
@@ -75,14 +82,8 @@ public class VistaEditor : MonoBehaviour
 
     private void CreateMap()
     {
-        presenter.InitializeMap(row, column);
-        GridLayoutGroup gridLayoutMap = layoutMap.gameObject.GetComponent<GridLayoutGroup>();
-        float width = gridLayoutMap.GetComponent<RectTransform>().rect.width / column;
-        float heigth = gridLayoutMap.GetComponent<RectTransform>().rect.height / row;
-        gridLayoutMap.cellSize = new Vector2(width, heigth);
-        gridLayoutMap.constraintCount = row;
+        presenter.InitializeMap(row, column); 
         elementSelect = bottonObject[4].GetComponent<Image>().sprite;
-
 
         for (int i = 0; i <row; i++)
         {
@@ -97,6 +98,15 @@ public class VistaEditor : MonoBehaviour
             }
         }
 
+    }
+
+    private void SetGridLayoutMap()
+    {
+        GridLayoutGroup gridLayoutMap = layoutMap.gameObject.GetComponent<GridLayoutGroup>();
+        float width = gridLayoutMap.GetComponent<RectTransform>().rect.width / column;
+        float heigth = gridLayoutMap.GetComponent<RectTransform>().rect.height / row;
+        gridLayoutMap.cellSize = new Vector2(width, heigth);
+        gridLayoutMap.constraintCount = row;
     }
 
     public void SetElementMatrix(GameObject cellMap)

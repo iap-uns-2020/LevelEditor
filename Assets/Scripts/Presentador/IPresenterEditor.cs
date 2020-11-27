@@ -4,15 +4,10 @@ using UnityEngine;
 
 public interface IPresenterEditor
 {
-    void InitializeMap(int fila, int columna);
-    void SetElementMatrix(int posFila, int posColumna, char tipoDeElemento);
-    bool ValidationMap();
+    void InitializeMap(int row, int column);
+    void SetElementMatrix(int positionRow, int positionColumn, char typeElement);
     string GenerationMap();
     void SetColumn(int column);
     void SetRow(int row);
-    int GetRow();
-    int GetColumn();
-    char[,] GetMatrix();
 
-
-}
+ }

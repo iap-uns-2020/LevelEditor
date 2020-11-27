@@ -17,7 +17,6 @@ namespace QR{
 			stringCompressor = new StringCompression();
 			if(String.Compare(qrData,"")!=0){
 				rawImage.texture = GenerateTexture(stringCompressor.Compress(qrData));
-				Debug.Log(stringCompressor.Compress(qrData));
 			}
 		}
 

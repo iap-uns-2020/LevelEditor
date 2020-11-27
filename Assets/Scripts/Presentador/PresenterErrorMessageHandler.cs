@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PresenterErrorMessageHandler : IPresenterErrorMessageHandler
 {
-    private LogicErrorMessageHandler logicError;
+    private ILogicErrorMessageHandler logicError;
 
     public PresenterErrorMessageHandler()
     {
@@ -24,5 +24,10 @@ public class PresenterErrorMessageHandler : IPresenterErrorMessageHandler
     public string CheckErrors()
     {
         return logicError.CheckErrors();
+    }
+
+    public bool GetValidMap()
+    {
+        return logicError.GetValidMap();
     }
 }

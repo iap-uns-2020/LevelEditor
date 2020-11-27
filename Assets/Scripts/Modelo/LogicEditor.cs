@@ -12,15 +12,11 @@ public class LogicEditor : ILogicEditor
     private const char WALLCODE = 'w';
     private const char BALLCODE = 'b';
     private const char GOALCODE = 'g';
-   // private MapValidation checkGoal, checkBall, checkPerimeter;
+  
 
     public LogicEditor()
-    {
-       // InitializeMap(row, column);
-     
+    {     
     }
-
-   
 
     public void InitializeMap(int row, int column)
     {
@@ -52,34 +48,18 @@ public class LogicEditor : ILogicEditor
                 mapa += boardLogic[i, j];
             }
         }
-        Debug.Log(mapa);
+
         return mapa;
     }
 
-   
+  
     public void SetRow(int row)
     {
         this.row = row;
-        //Debug.Log(this.row);
     }
 
     public void SetColumn(int column)
     {
         this.column = column;
-    }
-
-    public int GetRow()
-    {
-        return row;
-    }
-
-    public int GetColumn()
-    {
-        return column;
-    }
-
-    public char[,] GetMatrix()
-    {
-        return boardLogic;
     }
 }

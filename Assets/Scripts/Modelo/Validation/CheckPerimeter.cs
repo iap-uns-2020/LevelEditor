@@ -9,12 +9,13 @@ public class CheckPerimeter : MapValidation
     public bool CheckMap(int row, int column, char[,] boardLogic)
     {
         bool validMap = CheckRowWall(row, column, boardLogic) && CheckColumnWall(row, column, boardLogic);
+
         return validMap;
     }
 
     public string GetErrorMessage()
     {
-        string message = "Por favor, ponga muros alrededor de mapa";
+        string message = "Perimetro no cerrado";
         return message;
     }
 

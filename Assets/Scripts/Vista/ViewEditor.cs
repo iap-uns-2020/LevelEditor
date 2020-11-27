@@ -5,11 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using QR;
 
-public class VistaEditor : MonoBehaviour
+public class ViewEditor : MonoBehaviour
 {
-    public GameObject panelPrincipal;
-    public GameObject panelQR;
-
     public Button[] bottonObject;
     public GameObject cell;
     public Transform layoutMap;
@@ -17,36 +14,22 @@ public class VistaEditor : MonoBehaviour
     public Slider numberRow, numberColumn;
     public Text textNumberRow, textNumberColumn;
 
+    public ViewErrorMessageHandler message;
+    public QRCodeGenerator qrCodeGeneartor;
+
     private char typeElement;
-
     private Sprite elementSelect;
-
     private List<GameObject> allButton;
     private IPresenterEditor presenter;
-    
     private int row, column;
 
-    public ErrorMessageHandler message;
-
-
-    public QRCodeGenerator qrCodeGeneartor;
 
     // Start is called before the first frame update
     void Start()
     {
         allButton = new List<GameObject>();
         typeElement = ' ';
-        //presenter = new PresenterEditor(row, column);
-
-
-       
-
-
-
         presenter = new PresenterEditor();
-
-        //message = new ErrorMessageHandler();
-
 
         row = (int)numberRow.value;
         column = (int)numberColumn.value;
@@ -64,24 +47,40 @@ public class VistaEditor : MonoBehaviour
         CreateMap();
         InvokeRepeating("SetSlider", 0, 0.1f);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    private void SetSlider()
-    {
-        row = (int)numberRow.value;
-        textNumberRow.text = "Numero de filas: " + row;
-        column = (int)numberColumn.value;
-        textNumberColumn.text = "Numero de columnas: " + column;
-    }
+ 
     public void SetElement(ObjectSelector selectorObject, Sprite spriteObject)
     {
         elementSelect = spriteObject;
         typeElement = selectorObject.ObjectType;
+    }
+
+    public void SetElementMatrix(GameObject cellMap)
+    {
+        cellMap.GetComponent<Button>().GetComponent<Image>().sprite = elementSelect;
+
+        int positionRow = cellMap.GetComponent<ButtonInfo>().Row;
+        int positionColumn = cellMap.GetComponent<ButtonInfo>().Column;
+
+        presenter.SetElementMatrix(positionRow, positionColumn, typeElement);
+
+        message.SetElement(positionRow, positionColumn, typeElement);
+    }
+
+    public void ValidationMap()
+    {
+        if (message.ErrorMessage())
+            GetLevelCodification();
+    }
+
+    public void GetLevelCodification()
+    {
+        string levelString = presenter.GenerationMap();
+        ShowQRCode(levelString);
+    }
+
+    public void ShowQRCode(string qrData)
+    {
+        qrCodeGeneartor.GenerateQR(qrData);
     }
 
     public void SetMap()
@@ -101,7 +100,6 @@ public class VistaEditor : MonoBehaviour
 
     private void CreateMap()
     {
-
         presenter.InitializeMap(row, column);
         message.InitializeMapErrorMessage(row,column);
 
@@ -119,8 +117,6 @@ public class VistaEditor : MonoBehaviour
                 cellMap.GetComponent<Button>().onClick.AddListener(() => SetElementMatrix(cellMap));
             }
         }
-
-
     }
 
     private void SetGridLayoutMap()
@@ -132,59 +128,11 @@ public class VistaEditor : MonoBehaviour
         gridLayoutMap.constraintCount = row;
     }
 
-    public void SetElementMatrix(GameObject cellMap)
+    private void SetSlider()
     {
-        cellMap.GetComponent<Button>().GetComponent<Image>().sprite = elementSelect;
-
-        int positionRow = cellMap.GetComponent<ButtonInfo>().Row;
-        int positionColumn = cellMap.GetComponent<ButtonInfo>().Column;
-
-        presenter.SetElementMatrix(positionRow, positionColumn, typeElement);
-
-        message.SetElement(positionRow, positionColumn, typeElement);
+        row = (int)numberRow.value;
+        textNumberRow.text = "Numero de filas: " + row;
+        column = (int)numberColumn.value;
+        textNumberColumn.text = "Numero de columnas: " + column;
     }
-
-    public void ValidarMapa() {
-
-        if (message.ErrorMessage())
-            ObtenerCodificacionDelNivel();
-    }
-
-    public void ObtenerCodificacionDelNivel() {
-        string levelString = presenter.GenerationMap();
-        MostrarCodigoQR(levelString);
-    }
-
-    public void MostrarPanelQR() {
-        panelPrincipal.SetActive(false);
-        panelQR.SetActive(true);
-    }
-
-    public void MostrarPanelPrincipal() {
-        panelPrincipal.SetActive(true);
-        panelQR.SetActive(false);
-    }
-
-    public void MostrarCodigoQR(string qrData) {
-        Debug.Log(qrData);
-        qrCodeGeneartor.GenerateQR(qrData);
-    }
-
-
-
-    public int GetRows()
-    {
-        return row;
-    }
-
-    public int GetColumns()
-    {
-        return column;
-    }
-
-    public char[,] GetMatrix()
-    {
-        return presenter.GetMatrix();
-    }
-   
 }

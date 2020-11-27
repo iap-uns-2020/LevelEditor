@@ -5,10 +5,10 @@ using UnityEngine;
 public class CheckBall : MapValidation
 {
     private const char BALLCODE = 'b';
-
+    private int numberBall;
     public bool CheckMap(int row,int column, char[,] boardLogic)
     {
-        int numberBall = 0;
+        numberBall = 0;
         
         for (int i = 0; i < row; i++)
         {
@@ -24,6 +24,14 @@ public class CheckBall : MapValidation
 
     public string GetErrorMessage()
     {
-        return "d";
+        string message =""
+            ;
+
+        if (numberBall > 1)
+            message += "Muchas pelotas. ";
+        else
+            message += "No hay pelota. ";
+
+        return message;
     }
 }

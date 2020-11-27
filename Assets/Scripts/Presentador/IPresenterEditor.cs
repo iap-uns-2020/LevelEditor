@@ -8,5 +8,11 @@ public interface IPresenterEditor
     void SetElementMatrix(int posFila, int posColumna, char tipoDeElemento);
     bool ValidationMap();
     string GenerationMap();
+    void SetColumn(int column);
+    void SetRow(int row);
+    int GetRow();
+    int GetColumn();
+    char[,] GetMatrix();
+
 
 }

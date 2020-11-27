@@ -6,10 +6,11 @@ public class PresenterEditor : IPresenterEditor
 {
     private ILogicEditor logic;
 
-    public PresenterEditor(int row, int column)
+    public PresenterEditor()
     {
-        logic = new LogicEdtor(row, column);
+        logic = new LogicEditor();
     }
+
    
     public void InitializeMap(int row, int column)
     {
@@ -23,10 +24,35 @@ public class PresenterEditor : IPresenterEditor
 
     public bool ValidationMap()
     {
-        return logic.ValidationMap();
+        return true;
     }
 
     public string GenerationMap(){
         return logic.GenerationMap();
+    }
+
+    public void SetColumn(int column)
+    {
+        logic.SetColumn(column);
+    }
+
+    public void SetRow(int row)
+    {
+        logic.SetRow(row);
+    }
+
+    public int GetRow()
+    {
+        return logic.GetRow();
+    }
+
+    public int GetColumn()
+    {
+        return logic.GetColumn();
+    }
+
+    public char[,] GetMatrix()
+    {
+        return logic.GetMatrix();
     }
 }

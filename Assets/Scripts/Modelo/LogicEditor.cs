@@ -3,21 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LogicEdtor : ILogicEditor
+public class LogicEditor : ILogicEditor
 {
     private char[,] boardLogic;
     private int row, column;
     private const char SEPARATOR = '#';
-    private const char FLOOTCODE = 'f';
+    private const char FREESLOTCODE = 'f';
     private const char WALLCODE = 'w';
     private const char BALLCODE = 'b';
     private const char GOALCODE = 'g';
+   // private MapValidation checkGoal, checkBall, checkPerimeter;
 
-    public LogicEdtor(int row, int column)
+    public LogicEditor()
     {
-        InitializeMap(row, column);
+       // InitializeMap(row, column);
+     
     }
 
+   
 
     public void InitializeMap(int row, int column)
     {
@@ -30,7 +33,7 @@ public class LogicEdtor : ILogicEditor
         {
             for (int j = 0; j <column; j++)
             {
-                boardLogic[i, j] = FLOOTCODE;
+                boardLogic[i, j] = FREESLOTCODE;
             }
         }
     }
@@ -53,59 +56,30 @@ public class LogicEdtor : ILogicEditor
         return mapa;
     }
 
-    public bool CheckRowWall()
+   
+    public void SetRow(int row)
     {
-        bool validRow1 = true;
-        bool validRow2 = true;
-
-        for (int j = 0; j < column && validRow1 && validRow2; j++)
-        {
-            validRow1 = boardLogic[0, j] == WALLCODE;
-            validRow2 = boardLogic[row - 1, j] == WALLCODE;
-        }
-
-        return validRow1 && validRow2;
+        this.row = row;
+        //Debug.Log(this.row);
     }
 
-    public bool CheckColumnWall()
+    public void SetColumn(int column)
     {
-        bool validColumn1 = true;
-        bool validColumn2 = true;
-        int rowAct = 1;
-
-        while(rowAct < row && validColumn1 && validColumn2)
-        {
-            validColumn1 = boardLogic[rowAct, 0] == WALLCODE;
-            validColumn2 = boardLogic[rowAct, column - 1] == WALLCODE;
-            rowAct++;
-        }
-
-        return validColumn1 && validColumn2;
+        this.column = column;
     }
 
-    public bool ValidationMap(){
-        bool isValid = false;
-        int numberBall = 0;
-        int numberGoal = 0;
-
-        
-
-        for (int i = 0; i < row; i++)
-        {
-            for (int j = 0; j < column; j++)
-            {
-                if (boardLogic[i, j] == BALLCODE)
-                    numberBall++;
-                else
-                    if (boardLogic[i, j] == GOALCODE)
-                    numberGoal++;
-            }
-        }
-
-        if (numberBall == 1 && numberGoal == 1 && CheckRowWall() && CheckColumnWall())
-            isValid = true;
-
-        return isValid;
+    public int GetRow()
+    {
+        return row;
     }
 
+    public int GetColumn()
+    {
+        return column;
+    }
+
+    public char[,] GetMatrix()
+    {
+        return boardLogic;
+    }
 }

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HoleObjectSelector : ObjectSelector
-{
-    private void Start()
+
+    public class HoleObjectSelector : ObjectSelector
     {
-        ObjectType = 'h';
+        private void Start()
+        {
+            ObjectType = 'h';
+        }
     }
-}

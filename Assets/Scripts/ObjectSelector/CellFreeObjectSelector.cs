@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CellFreeObjectSelector : ObjectSelector
-{
-    // Start is called before the first frame update
-    void Start()
+
+    public class CellFreeObjectSelector : ObjectSelector
     {
-        ObjectType = 'f';
+        void Start()
+        {
+            ObjectType = 'f';
+        }
     }
-}

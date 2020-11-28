@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoalObjectSelector : ObjectSelector
-{
-    // Start is called before the first frame update
-    void Start()
+
+    public class GoalObjectSelector : ObjectSelector
     {
-        ObjectType = 'g';
+        void Start()
+        {
+            ObjectType = 'g';
+        }
     }
-}

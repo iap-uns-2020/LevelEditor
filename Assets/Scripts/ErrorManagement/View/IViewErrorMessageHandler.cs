@@ -4,10 +4,8 @@ using UnityEngine;
 
 namespace ErrorManagement.View
 {
-    public interface IViewErrorMessageHandler
-    {
+    public interface IViewErrorMessageHandler{
         bool ErrorMessage();
-        void PanelMain();
         void SetElement(int row, int column, char element);
         void InitializeMapErrorMessage();
     }

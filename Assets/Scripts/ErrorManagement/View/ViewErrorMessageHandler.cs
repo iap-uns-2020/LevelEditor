@@ -8,10 +8,12 @@ namespace ErrorManagement.View
 {
     public class ViewErrorMessageHandler : MonoBehaviour, IViewErrorMessageHandler
     {
+    	private const string MSGHEADER = "Mapa inválido: Cuidado! ";
+    	private IPresenterErrorMessageHandler presenterErrorMessage;
         public GameObject panelWarning, QRCodeDisplay, editorPanel;
         public Text messageError;
         public Slider sliderRow, sliderColumn;
-        private IPresenterErrorMessageHandler presenterErrorMessage;
+        
         
         void Start()
         {
@@ -29,17 +31,10 @@ namespace ErrorManagement.View
             else
             {
                 panelWarning.SetActive(true);
-                messageError.text = "Mapa invalido: Cuidado! " + message;
+                messageError.text = MSGHEADER + message;
             }
 
             return validMap;
-        }
-
-        public void PanelMain()
-        {
-            QRCodeDisplay.SetActive(false);
-            panelWarning.SetActive(false);
-            editorPanel.SetActive(true);
         }
 
         public void SetElement(int row, int column, char element)
@@ -52,6 +47,13 @@ namespace ErrorManagement.View
             int row = (int)sliderRow.value;
             int column = (int)sliderColumn.value;
             presenterErrorMessage.InitializeMap(row, column);
+        }
+
+        private void ShowMainPanel()
+        {
+            QRCodeDisplay.SetActive(false);
+            panelWarning.SetActive(false);
+            editorPanel.SetActive(true);
         }
 
     }

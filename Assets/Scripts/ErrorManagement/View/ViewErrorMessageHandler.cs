@@ -49,7 +49,7 @@ namespace ErrorManagement.View
             presenterErrorMessage.InitializeMap(row, column);
         }
 
-        private void ShowMainPanel()
+        public void ShowMainPanel()
         {
             QRCodeDisplay.SetActive(false);
             panelWarning.SetActive(false);

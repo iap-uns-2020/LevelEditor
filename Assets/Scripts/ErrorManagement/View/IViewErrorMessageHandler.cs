@@ -8,5 +8,6 @@ namespace ErrorManagement.View
         bool ErrorMessage();
         void SetElement(int row, int column, char element);
         void InitializeMapErrorMessage();
+        void ShowMainPanel();
     }
 }

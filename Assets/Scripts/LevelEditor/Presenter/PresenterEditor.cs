@@ -7,36 +7,36 @@ namespace Editor.Presenter
 {
     public class PresenterEditor : IPresenterEditor
     {
-        private ILogicEditor logic;
+        private ILogicEditor logicEditor;
 
         public PresenterEditor()
         {
-            logic = new LogicEditor();
+            logicEditor = new LogicEditor();
         }
 
         public void InitializeMap(int row, int column)
         {
-            logic.InitializeMap(row, column);
+            logicEditor.InitializeMap(row, column);
         }
 
         public void SetElementMatrix(int positionRow, int positionColumn, char typeElement)
         {
-            logic.SetElementMatrix(positionRow, positionColumn, typeElement);
+            logicEditor.SetElementMatrix(positionRow, positionColumn, typeElement);
         }
 
         public string GenerationMap()
         {
-            return logic.GenerationMap();
+            return logicEditor.GenerationMap();
         }
 
         public void SetColumn(int column)
         {
-            logic.SetColumn(column);
+            logicEditor.SetColumn(column);
         }
 
         public void SetRow(int row)
         {
-            logic.SetRow(row);
+            logicEditor.SetRow(row);
         }
     }
 }

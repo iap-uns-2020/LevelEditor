@@ -1,4 +1,5 @@
 ﻿using ErrorManagement.Presenter;
+using PanelManager.View;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,13 +11,15 @@ namespace ErrorManagement.View
     {
     	private const string MSGHEADER = "Mapa inválido: Cuidado! ";
     	private IPresenterErrorMessageHandler presenterErrorMessage;
-        public GameObject panelWarning, QRCodeDisplay, editorPanel;
+        public GameObject IPanelManager;
+        private IPanelManager panelManager;    
         public Text messageError;
         public Slider sliderRow, sliderColumn;
         
         
         void Start()
         {
+            panelManager = IPanelManager.GetComponent<IPanelManager>();
             presenterErrorMessage = new PresenterErrorMessageHandler();
             InitializeMapErrorMessage();
         }
@@ -27,10 +30,10 @@ namespace ErrorManagement.View
             bool validMap = presenterErrorMessage.GetValidMap();
 
             if (validMap)
-                QRCodeDisplay.SetActive(true);
+                panelManager.ActivePanelQR();
             else
             {
-                panelWarning.SetActive(true);
+                panelManager.ActivePanelWarning();
                 messageError.text = MSGHEADER + message;
             }
 
@@ -47,13 +50,6 @@ namespace ErrorManagement.View
             int row = (int)sliderRow.value;
             int column = (int)sliderColumn.value;
             presenterErrorMessage.InitializeMap(row, column);
-        }
-
-        public void ShowMainPanel()
-        {
-            QRCodeDisplay.SetActive(false);
-            panelWarning.SetActive(false);
-            editorPanel.SetActive(true);
         }
 
     }

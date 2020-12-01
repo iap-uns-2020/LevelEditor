@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Editor.View
 {
-    public class WallObjectInfo : ObjectInfo
+    public class WallObjectInfo : ObjectTypeSettersAndGettersAsociation
     {
         void Start()
         {

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Editor.View
 {
-    public class HoleObjectInfo : ObjectInfo
+    public class HoleObjectInfo : ObjectTypeSettersAndGettersAsociation
     {
         private void Start()
         {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Editor.View
 {
-    public abstract class ObjectInfo : MonoBehaviour
+    public abstract class ObjectTypeSettersAndGettersAsociation : MonoBehaviour
     {
         private char objectType;
 

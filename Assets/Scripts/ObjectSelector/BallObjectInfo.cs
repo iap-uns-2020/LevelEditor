@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Editor.View
 {
-    public class BallObjectInfo : ObjectInfo
+    public class BallObjectInfo : ObjectTypeSettersAndGettersAsociation
     {
         void Start()
         {

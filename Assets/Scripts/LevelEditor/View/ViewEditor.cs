@@ -31,9 +31,7 @@ namespace Editor.View
         private List<GameObject> allButton;
         private IPresenterEditor presenterEditor;
         private int row, column;
-
-
-       
+  
         // Start is called before the first frame update
         void Start()
         {
@@ -51,15 +49,15 @@ namespace Editor.View
             messagerErrorManager = IViewErrorMessageHandler.GetComponent<IViewErrorMessageHandler>();
             qrCodeGeneartor = IQRCodeGenerator.GetComponent<IQRCodeGenerator>();
             foreach (Button button in bottonObject)
-                button.onClick.AddListener(() => SetElement(button.GetComponent<ObjectInfo>(), button.GetComponent<Image>().sprite));
+                button.onClick.AddListener(() => SetElement(button.GetComponent<ObjectTypeSettersAndGettersAsociation>(), button.GetComponent<Image>().sprite));
 
-            SetElement(bottonObject[bottonObject.Length - 1].GetComponent<ObjectInfo>(), bottonObject[FREESLOTSPRITEPOSITIONINARRAY].GetComponent<Image>().sprite);
+            SetElement(bottonObject[bottonObject.Length - 1].GetComponent<ObjectTypeSettersAndGettersAsociation>(), bottonObject[FREESLOTSPRITEPOSITIONINARRAY].GetComponent<Image>().sprite);
             SetGridLayoutMap();
             CreateMap();
             InvokeRepeating("SetSlider", 0, 0.1f);
         }
 
-        public void SetElement(ObjectInfo selectorObject, Sprite spriteObject)
+        public void SetElement(ObjectTypeSettersAndGettersAsociation selectorObject, Sprite spriteObject)
         {
             elementSelect = spriteObject;
             typeElement = selectorObject.ObjectType;

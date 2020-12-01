@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Editor.View
 {
-    public class CellFreeObjectInfo : ObjectInfo
+    public class CellFreeObjectInfo : ObjectTypeSettersAndGettersAsociation
     {
         void Start()
         {

@@ -6,7 +6,7 @@ namespace Editor.View
 {
     public interface IViewEditor
     {
-        void SetElement(ObjectSelector selectorObject, Sprite spriteObject);
+        void SetElement(ObjectInfo selectorObject, Sprite spriteObject);
         void SetElementMatrix(GameObject cellMap);
         void ValidationMap();
         void GetLevelCodification();

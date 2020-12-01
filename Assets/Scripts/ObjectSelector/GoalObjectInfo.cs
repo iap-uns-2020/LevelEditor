@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-    public class GoalObjectSelector : ObjectSelector
+namespace Editor.View
+{
+    public class GoalObjectInfo : ObjectInfo
     {
         void Start()
         {
             ObjectType = 'g';
         }
     }
+}

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-    public class CellFreeObjectSelector : ObjectSelector
+namespace Editor.View
+{
+    public class BallObjectInfo : ObjectInfo
     {
         void Start()
         {
-            ObjectType = 'f';
+            ObjectType = 'b';
         }
     }
+}

@@ -7,7 +7,6 @@ using QRGenerator.View;
 using ErrorManagement.View;
 using Editor.Presenter;
 
-
 namespace Editor.View
 {
     public class ViewEditor : MonoBehaviour
@@ -23,8 +22,8 @@ namespace Editor.View
         public Text textNumberRow, textNumberColumn;
 
         public GameObject IViewErrorMessageHandler;
-        public IViewErrorMessageHandler messagerErrorManager;
-        public IQRCodeGenerator qrCodeGeneartor;
+        private IViewErrorMessageHandler messagerErrorManager;
+        private IQRCodeGenerator qrCodeGeneartor;
         public GameObject IQRCodeGenerator;
 
         private char typeElement;
@@ -52,15 +51,15 @@ namespace Editor.View
             messagerErrorManager = IViewErrorMessageHandler.GetComponent<IViewErrorMessageHandler>();
             qrCodeGeneartor = IQRCodeGenerator.GetComponent<IQRCodeGenerator>();
             foreach (Button button in bottonObject)
-                button.onClick.AddListener(() => SetElement(button.GetComponent<ObjectSelector>(), button.GetComponent<Image>().sprite));
+                button.onClick.AddListener(() => SetElement(button.GetComponent<ObjectInfo>(), button.GetComponent<Image>().sprite));
 
-            SetElement(bottonObject[bottonObject.Length - 1].GetComponent<ObjectSelector>(), bottonObject[FREESLOTSPRITEPOSITIONINARRAY].GetComponent<Image>().sprite);
+            SetElement(bottonObject[bottonObject.Length - 1].GetComponent<ObjectInfo>(), bottonObject[FREESLOTSPRITEPOSITIONINARRAY].GetComponent<Image>().sprite);
             SetGridLayoutMap();
             CreateMap();
             InvokeRepeating("SetSlider", 0, 0.1f);
         }
 
-        public void SetElement(ObjectSelector selectorObject, Sprite spriteObject)
+        public void SetElement(ObjectInfo selectorObject, Sprite spriteObject)
         {
             elementSelect = spriteObject;
             typeElement = selectorObject.ObjectType;
@@ -70,8 +69,8 @@ namespace Editor.View
         {
             cellMap.GetComponent<Button>().GetComponent<Image>().sprite = elementSelect;
 
-            int positionRow = cellMap.GetComponent<ButtonInfo>().Row;
-            int positionColumn = cellMap.GetComponent<ButtonInfo>().Column;
+            int positionRow = cellMap.GetComponent<ButtonInfo>().GetRow();
+            int positionColumn = cellMap.GetComponent<ButtonInfo>().GetColumn();
 
             presenterEditor.SetElementMatrix(positionRow, positionColumn, typeElement);
             messagerErrorManager.SetElement(positionRow, positionColumn, typeElement);
@@ -119,8 +118,8 @@ namespace Editor.View
                 {
                     GameObject cellMap = Instantiate(cell, layoutMap);
                     allButton.Add(cellMap);
-                    cellMap.GetComponent<ButtonInfo>().Row = i;
-                    cellMap.GetComponent<ButtonInfo>().Column = j;
+                    cellMap.GetComponent<ButtonInfo>().SetRow(i);
+                    cellMap.GetComponent<ButtonInfo>().SetColumn(j);
                     cellMap.GetComponent<Button>().GetComponent<Image>().sprite = elementSelect;
                     cellMap.GetComponent<Button>().onClick.AddListener(() => SetElementMatrix(cellMap));
                 }

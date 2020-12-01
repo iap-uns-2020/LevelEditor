@@ -2,10 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonInfo : MonoBehaviour
+namespace Editor.View
 {
-    private int fila, columna;
+    public class ButtonInfo : MonoBehaviour, IButtonInfo
+    {
+        private int row, column;
 
-    public int Row { get => fila; set => fila = value; }
-    public int Column { get => columna; set => columna = value; }
+        public int GetRow()
+        {
+            return row;
+        }
+
+        public void SetRow(int row)
+        {
+            this.row = row;
+        }
+
+        public int GetColumn()
+        {
+            return column;
+        }
+
+        public void SetColumn(int column)
+        {
+            this.column = column;
+        }
+    }
 }

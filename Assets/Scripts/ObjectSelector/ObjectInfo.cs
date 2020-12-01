@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-    public abstract class ObjectSelector : MonoBehaviour
+namespace Editor.View
+{
+    public abstract class ObjectInfo : MonoBehaviour
     {
         private char objectType;
 
         public char ObjectType { get => objectType; set => objectType = value; }
     }
+}

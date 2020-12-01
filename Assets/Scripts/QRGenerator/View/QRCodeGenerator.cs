@@ -19,7 +19,6 @@ namespace QRGenerator.View{
 		public void GenerateQR(string qrData){
 			stringCompressor = new StringCompression();
 			if(String.Compare(qrData,"")!=0){
-				Debug.Log(qrData);
 				rawImage.texture = GenerateTexture(stringCompressor.Compress(qrData));
 			}
 		}

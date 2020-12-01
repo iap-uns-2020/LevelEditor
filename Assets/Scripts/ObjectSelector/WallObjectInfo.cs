@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-    public class WallObjectSelector : ObjectSelector
+namespace Editor.View
+{
+    public class WallObjectInfo : ObjectInfo
     {
         void Start()
         {
@@ -11,3 +12,4 @@ using UnityEngine;
         }
 
     }
+}

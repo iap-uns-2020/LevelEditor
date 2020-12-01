@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-    public class HoleObjectSelector : ObjectSelector
+namespace Editor.View
+{
+    public class HoleObjectInfo : ObjectInfo
     {
         private void Start()
         {
             ObjectType = 'h';
         }
     }
+}
